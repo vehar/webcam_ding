@@ -30,7 +30,7 @@ public:
     QStackedWidget *stackedWidget;
     QWidget *page;
     QWidget *page_2;
-    QLineEdit *lineEdit;
+    QLineEdit *lineEdit_1;
     QLabel *label;
     QLineEdit *lineEdit_2;
     QLabel *label_2;
@@ -54,9 +54,9 @@ public:
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
         page_2->setObjectName(QStringLiteral("page_2"));
-        lineEdit = new QLineEdit(page_2);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(25, 455, 116, 20));
+        lineEdit_1 = new QLineEdit(page_2);
+        lineEdit_1->setObjectName(QStringLiteral("lineEdit_1"));
+        lineEdit_1->setGeometry(QRect(25, 455, 116, 20));
         label = new QLabel(page_2);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(150, 455, 116, 21));

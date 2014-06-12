@@ -1298,6 +1298,26 @@ release\moc_subscreen.cpp: ..\..\..\..\5.3\msvc2012_opengl\include\QtMultimedia\
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimediaWidgets\qgraphicsvideoitem.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimediaWidgets\qvideowidgetcontrol.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimediaWidgets\qtmultimediawidgetsversion.h \
+		QCustomPlot\qcustomplot\qcustomplot.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QPointer \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QPainter \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QPaintEvent \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QMouseEvent \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QPixmap \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QVector \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QDateTime \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QMultiMap \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QDebug \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QVector2D \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QStack \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QCache \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\QPrinter \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qprinter.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qtprintsupportglobal.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\QPrintEngine \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qprintengine.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QtNumeric \
 		subscreen.h
 	C:\Qt_online\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt_online/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Qt_online/Examples/Qt-5.3/multimediawidgets/camera -IC:/Qt_online/5.3/msvc2012_opengl/include -IC:/Qt_online/5.3/msvc2012_opengl/include/QtMultimediaWidgets -IC:/Qt_online/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt_online/5.3/msvc2012_opengl/include/QtMultimedia -IC:/Qt_online/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt_online/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt_online/5.3/msvc2012_opengl/include/QtGui -IC:/Qt_online/5.3/msvc2012_opengl/include/QtCore subscreen.h -o release\moc_subscreen.cpp
 
@@ -1553,7 +1573,141 @@ ui_camera.h: camera.ui \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimedia\qmediabindableinterface.h
 	C:\Qt_online\5.3\msvc2012_opengl\bin\uic.exe camera.ui -o ui_camera.h
 
-ui_subscreen.h: subscreen.ui
+ui_subscreen.h: subscreen.ui \
+		QCustomPlot\qcustomplot\qcustomplot.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QObject \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qobject.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qobjectdefs.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qnamespace.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qglobal.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qconfig.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qfeatures.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qsystemdetection.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qprocessordetection.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qcompilerdetection.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qtypeinfo.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qtypetraits.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qsysinfo.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qlogging.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qflags.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qatomic.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qbasicatomic.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qatomic_bootstrap.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qgenericatomic.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qatomic_msvc.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qatomic_armv7.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qatomic_armv6.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qatomic_armv5.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qatomic_ia64.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qatomic_mips.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qatomic_x86.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qatomic_cxx11.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qatomic_gcc.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qatomic_unix.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qglobalstatic.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qmutex.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qnumeric.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qobjectdefs_impl.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qstring.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qchar.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qbytearray.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qrefcount.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qarraydata.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qstringbuilder.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qlist.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qalgorithms.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qiterator.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qcoreevent.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qscopedpointer.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qmetatype.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qvarlengtharray.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qcontainerfwd.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qisenum.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qobject_impl.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QPointer \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qpointer.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qsharedpointer.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qshareddata.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qsharedpointer_impl.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qhash.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qpair.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\qwidget.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qwindowdefs.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qwindowdefs_win.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qmargins.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qpaintdevice.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qrect.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qsize.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qpoint.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qpalette.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qcolor.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qrgb.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qstringlist.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qdatastream.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qiodevice.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qregexp.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qstringmatcher.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qbrush.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qvector.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qmatrix.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qpolygon.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qregion.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qline.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qtransform.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qpainterpath.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qimage.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qpixmap.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qfont.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qfontmetrics.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qfontinfo.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\qsizepolicy.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qcursor.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qkeysequence.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qevent.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qvariant.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qmap.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qdebug.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qtextstream.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qlocale.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qset.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qcontiguouscache.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qurl.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qurlquery.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qfile.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qfiledevice.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qvector2d.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qtouchdevice.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QPainter \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qpainter.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qtextoption.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qpen.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QPaintEvent \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QMouseEvent \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QPixmap \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QVector \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QString \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QDateTime \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qdatetime.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QMultiMap \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QFlags \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QDebug \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QVector2D \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QStack \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qstack.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QCache \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qcache.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QMargins \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\qmath.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\QPrinter \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qprinter.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qpagedpaintdevice.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qpagelayout.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\qpagesize.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qtprintsupportglobal.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\QPrintEngine \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qprintengine.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QtNumeric
 	C:\Qt_online\5.3\msvc2012_opengl\bin\uic.exe subscreen.ui -o ui_subscreen.h
 
 compiler_yacc_decl_make_all:
@@ -2134,6 +2288,26 @@ release\main.obj: main.cpp camera.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimediaWidgets\qvideowidgetcontrol.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimediaWidgets\qtmultimediawidgetsversion.h \
 		subscreen.h \
+		QCustomPlot\qcustomplot\qcustomplot.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QPointer \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QPainter \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QPaintEvent \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QMouseEvent \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QPixmap \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QVector \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QDateTime \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QMultiMap \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QDebug \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QVector2D \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QStack \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QCache \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\QPrinter \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qprinter.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qtprintsupportglobal.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\QPrintEngine \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qprintengine.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QtNumeric \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QTextCodec \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QAction \
@@ -3305,18 +3479,9 @@ release\subscreen.obj: subscreen.cpp subscreen.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimediaWidgets\qgraphicsvideoitem.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimediaWidgets\qvideowidgetcontrol.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimediaWidgets\qtmultimediawidgetsversion.h \
-		ui_subscreen.h \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QAction \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QButtonGroup \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QGridLayout \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QHeaderView \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QLabel \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QLineEdit \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QStackedWidget \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		QCustomPlot\qcustomplot\qcustomplot.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QPointer \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QPainter \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QPaintEvent \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QMouseEvent \
@@ -3334,6 +3499,15 @@ release\subscreen.obj: subscreen.cpp subscreen.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\QPrintEngine \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qprintengine.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QtNumeric \
+		ui_subscreen.h \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QAction \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QButtonGroup \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QGridLayout \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QHeaderView \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QLabel \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QLineEdit \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QStackedWidget \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimedia\QMediaService \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimediaWidgets\QCameraViewfinder \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimedia\QMediaMetaData \

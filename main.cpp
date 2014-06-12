@@ -63,12 +63,24 @@ int main(int argc, char *argv[])
 
 
     //---------------1-st screen--------------------------------
-    Camera cam;
-    cam.show();
+   Camera cam;
+   cam.show();
     //----------------1-st screen end----------------------------
 
+/*
+    //--------2-nd screen test-----------------------------------------------------
+    QMainWindow *window = new QMainWindow();
+    QRect screenres = QApplication::desktop()->screenGeometry(1);
+    window->move(QPoint(screenres.x(), screenres.y()));
+    window->showFullScreen();
+    window->setWindowFlags(Qt::FramelessWindowHint);// убираем строку заголовка
+    window->show();
+    //--------2-nd screen test end--------------------------------------------------
+*/
 
-    //----------------2-nd screen--------------------------------
+
+    //----------2-nd screen---------------------------------------------
+
 /*
     QMainWindow *window = new QMainWindow();
     window->setWindowTitle(QString::fromUtf8("QLineEdit Password Style"));

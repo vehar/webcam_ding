@@ -90,21 +90,24 @@ void MainWindow::setupAdvancedAxesDemo(QCustomPlot *customPlot)
 
   // configure axis rect:
   customPlot->plotLayout()->clear(); // clear default axis rect so we can start from scratch
+
   QCPAxisRect *wideAxisRect = new QCPAxisRect(customPlot);
   wideAxisRect->setupFullAxesBox(true);
   wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
   wideAxisRect->addAxis(QCPAxis::atLeft)->setTickLabelColor(QColor("#6050F8")); // add an extra axis on the left and color its numbers
+
   QCPLayoutGrid *subLayout = new QCPLayoutGrid;
   customPlot->plotLayout()->addElement(0, 0, wideAxisRect); // insert axis rect in first row
   customPlot->plotLayout()->addElement(1, 0, subLayout); // sub layout in second row (grid layout will grow accordingly)
   //customPlot->plotLayout()->setRowStretchFactor(1, 2);
+
   // prepare axis rects that will be placed in the sublayout:
   QCPAxisRect *subRectLeft = new QCPAxisRect(customPlot, false); // false means to not setup default axes
   QCPAxisRect *subRectRight = new QCPAxisRect(customPlot, false);
   subLayout->addElement(0, 0, subRectLeft);
   subLayout->addElement(0, 1, subRectRight);
-  subRectRight->setMaximumSize(150, 150); // make bottom right axis rect size fixed 150x150
-  subRectRight->setMinimumSize(150, 150); // make bottom right axis rect size fixed 150x150
+ // subRectRight->setMaximumSize(150, 150); // make bottom right axis rect size fixed 150x150
+ // subRectRight->setMinimumSize(150, 150); // make bottom right axis rect size fixed 150x150
   // setup axes in sub layout axis rects:
   subRectLeft->addAxes(QCPAxis::atBottom | QCPAxis::atLeft);
   subRectRight->addAxes(QCPAxis::atBottom | QCPAxis::atRight);
@@ -133,6 +136,7 @@ void MainWindow::setupAdvancedAxesDemo(QCustomPlot *customPlot)
   QVector<double> x2(100), y2(100);
   QVector<double> x3, y3;
   qsrand(3);
+
   for (int i=0; i<x1a.size(); ++i)
   {
     x1a[i] = i/(double)(x1a.size()-1)*10-5.0;
@@ -143,23 +147,26 @@ void MainWindow::setupAdvancedAxesDemo(QCustomPlot *customPlot)
     x1b[i] = i/(double)x1b.size()*10-5.0;
     y1b[i] = qExp(-x1b[i]*x1b[i]*0.2)*1000;
   }
+
   for (int i=0; i<x2.size(); ++i)
   {
     x2[i] = i/(double)x2.size()*10;
     y2[i] = qrand()/(double)RAND_MAX-0.5+y2[qAbs(i-1)];
   }
-  x3 << 1 << 2 << 3 << 4;
-  y3 << 2 << 2.5 << 4 << 1.5;
+
+  x3 << 1 << 2 << 3 << 4 <<5; //right
+  y3 << 2 << 2.5 << 4 << 1.5 << 5; //right
 
   // create and configure plottables:
   QCPGraph *mainGraph1 = customPlot->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
   mainGraph1->setData(x1a, y1a);
   mainGraph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black), QBrush(Qt::white), 6));
   mainGraph1->setPen(QPen(QColor(120, 120, 120), 2));
+
   QCPGraph *mainGraph2 = customPlot->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft, 1));
   mainGraph2->setData(x1b, y1b);
-  mainGraph2->setPen(QPen(QColor("#8070B8"), 2));
-  mainGraph2->setBrush(QColor(110, 170, 110, 30));
+  mainGraph2->setPen(QPen(QColor(0, 100, 50), 2));
+  mainGraph2->setBrush(QColor(110, 170, 110, 30)); //закрас пересечений
   mainGraph1->setChannelFillGraph(mainGraph2);
   mainGraph1->setBrush(QColor(255, 161, 0, 50));
 
