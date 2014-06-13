@@ -31,9 +31,9 @@ Subscreen::Subscreen(QWidget *parent) :  QWidget(parent)
  //QRect screenres = QApplication::desktop()->screenGeometry(1);
 // move(QPoint(screenres.x(), screenres.y()));
 
-  // setupAdvancedAxesDemo(ui->customPlot);
+   setupAdvancedAxesDemo(ui->customPlot_2);
 setupRealtimeDataDemo(ui->customPlot);
-
+//setupRealtimeDataDemo(ui->customPlot_2);
 
 #ifndef __DEBUG
     showFullScreen();
@@ -51,14 +51,13 @@ setupRealtimeDataDemo(ui->customPlot);
    //  QCPAxisRect *wideAxisRect = new QCPAxisRect(ui->customPlot);
    //  QCPGraph *mainGraph1 =ui->customPlot->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
 
-
 }
 
 
 
 Subscreen::~Subscreen()
 {
-   // delete ui;
+    delete ui;
    // camera->stop();//TODO вырубать все (не 1)
    // delete camera;
 }
@@ -91,29 +90,46 @@ void Subscreen::Enter_lineEdit_3()
  };
 
 
-
+static double g_cnt;
 
 void Subscreen::Graphs_up()
 {
+    QVector<double> x_n(20), y_n(20);
       double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
       double value0 = qSin(key);
 
-    x3 << 1 << 2 << 3 << 4;
-    y3 << 3 << 4 << 4 << 3;
-    //setupAdvancedAxesDemo(ui->customPlot);
-/*
-    bars1->setWidth(3/(double)x3.size());
-    bars1->setData(x3, y3);
-    bars1->setPen(QPen(Qt::black));
-    bars1->setAntialiased(false);
-    bars1->setAntialiasedFill(false);
-    bars1->setBrush(QColor("#705BE8"));
-    bars1->keyAxis()->setAutoTicks(false);
-    bars1->keyAxis()->setTickVector(x3);
-*/
- ui->customPlot->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
-ui->customPlot->graph(2)->addData(key, value0);
-ui->customPlot->replot();
+
+
+if(g_cnt >= 0.8)
+{
+    ui->customPlot_2->graph(0)->setPen(QPen(QColor(Qt::red), 2));
+    ui->customPlot_2->graph(1)->setBrush(QColor(0, 255, 0, 100));
+    g_cnt=0;
+}
+g_cnt+=0.3;
+
+x3 << 1 << 2 << 3 << 4;
+y3 << 5 << 4 << 3 << 2;
+   // setupAdvancedAxesDemo(ui->customPlot_2);
+   // setupRealtimeDataDemo(ui->customPlot_2);
+
+    for (int i=0; i<x_n.size(); ++i)
+    {
+      x_n[i] = i/(double)(x_n.size()-1)*10-5.0;
+      y_n[i] = g_cnt+qCos(x_n[i]);
+    }
+
+    ui->customPlot_2->graph(0)->setData(x_n, y_n);
+  //ui->customPlot_2->graph(1)->setData(y_n, x_n);
+
+//ui->customPlot_2->graph(2)->setData(x3, y3);
+//ui->customPlot_2->bars1->rescaleAxes();
+//wideAxisRect->axis(QCPAxis::atLeft, 1)->setRangeLower(0);
+
+// ui->customPlot->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+//ui->customPlot->graph(0)->addData(key, value0);
+
+ui->customPlot_2->replot();
 }
 
 
@@ -191,12 +207,14 @@ void Subscreen::setupAdvancedAxesDemo(QCustomPlot *customPlot)
   mainGraph1->setData(x1a, y1a);
   mainGraph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black), QBrush(Qt::white), 6));
   mainGraph1->setPen(QPen(QColor(120, 120, 120), 2));
+
   QCPGraph *mainGraph2 = customPlot->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft, 1));
   mainGraph2->setData(x1b, y1b);
   mainGraph2->setPen(QPen(QColor("#8070B8"), 2));
   mainGraph2->setBrush(QColor(110, 170, 110, 30));
   mainGraph1->setChannelFillGraph(mainGraph2);
   mainGraph1->setBrush(QColor(255, 161, 0, 50));
+
 
   QCPGraph *graph2 = customPlot->addGraph(subRectLeft->axis(QCPAxis::atBottom), subRectLeft->axis(QCPAxis::atLeft));
   graph2->setData(x2, y2);
@@ -236,26 +254,27 @@ void Subscreen::setupAdvancedAxesDemo(QCustomPlot *customPlot)
 void Subscreen::setupRealtimeDataDemo(QCustomPlot *customPlot)
 {
   // include this section to fully disable antialiasing for higher performance:
-  /*
   customPlot->setNotAntialiasedElements(QCP::aeAll);
   QFont font;
   font.setStyleStrategy(QFont::NoAntialias);
   customPlot->xAxis->setTickLabelFont(font);
   customPlot->yAxis->setTickLabelFont(font);
   customPlot->legend->setFont(font);
-  */
+
   customPlot->addGraph(); // blue line
-  customPlot->graph(0)->setPen(QPen(Qt::green));
-  customPlot->graph(0)->setBrush(QBrush(QColor(240, 0, 0)));
+  customPlot->graph(0)->setPen(QPen(QColor(Qt::blue), 2));
+  customPlot->graph(0)->setBrush(QBrush(QColor(240, 150, 40))); //заливка
   customPlot->graph(0)->setAntialiasedFill(false);
+
   customPlot->addGraph(); // red line
-  customPlot->graph(1)->setPen(QPen(Qt::red));
-  customPlot->graph(0)->setChannelFillGraph(customPlot->graph(1));
+  customPlot->graph(1)->setPen(QPen(QColor(Qt::red), 2));
+  customPlot->graph(0)->setChannelFillGraph(customPlot->graph(1)); //0
 
   customPlot->addGraph(); // blue dot
   customPlot->graph(2)->setPen(QPen(Qt::blue)); //цвет линий
   customPlot->graph(2)->setLineStyle(QCPGraph::lsNone);
   customPlot->graph(2)->setScatterStyle(QCPScatterStyle::ssDisc);
+
   customPlot->addGraph(); // red dot
   customPlot->graph(3)->setPen(QPen(Qt::red));
   customPlot->graph(3)->setLineStyle(QCPGraph::lsNone);
@@ -272,8 +291,8 @@ void Subscreen::setupRealtimeDataDemo(QCustomPlot *customPlot)
   connect(customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), customPlot->yAxis2, SLOT(setRange(QCPRange)));
 
   // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
-  //connect(&dataTimer, SIGNAL(timeout()), this, SLOT(realtimeDataSlot()));
- // dataTimer.start(0); // Interval 0 means to refresh as fast as possible
+  connect(&dataTimer, SIGNAL(timeout()), this, SLOT(realtimeDataSlot()));
+  dataTimer.start(0); // Interval 0 means to refresh as fast as possible
 }
 
 void Subscreen::realtimeDataSlot()
@@ -290,7 +309,7 @@ void Subscreen::realtimeDataSlot()
     double value0 = qSin(key); //sin(key*1.6+cos(key*1.7)*2)*10 + sin(key*1.2+0.56)*20 + 26;
     double value1 = qCos(key); //sin(key*1.3+cos(key*1.2)*1.2)*7 + sin(key*0.9+0.26)*24 + 26;
     // add data to lines:
-/*
+
     ui->customPlot->graph(0)->addData(key, value0);
     ui->customPlot->graph(1)->addData(key, value1);
     // set data of dots:
@@ -305,7 +324,7 @@ void Subscreen::realtimeDataSlot()
     ui->customPlot->graph(0)->rescaleValueAxis();
     ui->customPlot->graph(1)->rescaleValueAxis(true);
     lastPointKey = key;
-*/
+
 
     ui->customPlot->graph(2)->addData(key, value0);
     ui->customPlot->graph(2)->addData(key, value1);

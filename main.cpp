@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+qDebug() << "Date:" << QDate::currentDate();
 
     //--------Test bench------------------------------------
     Subscreen sub;
