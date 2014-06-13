@@ -67,22 +67,22 @@ DESTDIR_TARGET = debug\camera.exe
 
 .SUFFIXES: .c .cpp .cc .cxx
 
-{debug}.cpp{debug\}.obj::
+{QCustomPlot\qcustomplot}.cpp{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
 
-{debug}.cc{debug\}.obj::
+{QCustomPlot\qcustomplot}.cc{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
 
-{debug}.cxx{debug\}.obj::
+{QCustomPlot\qcustomplot}.cxx{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
 
-{debug}.c{debug\}.obj::
+{QCustomPlot\qcustomplot}.c{debug\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
@@ -107,22 +107,22 @@ DESTDIR_TARGET = debug\camera.exe
 	$<
 <<
 
-{QCustomPlot\qcustomplot}.cpp{debug\}.obj::
+{debug}.cpp{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
 
-{QCustomPlot\qcustomplot}.cc{debug\}.obj::
+{debug}.cc{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
 
-{QCustomPlot\qcustomplot}.cxx{debug\}.obj::
+{debug}.cxx{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
 
-{QCustomPlot\qcustomplot}.c{debug\}.obj::
+{debug}.c{debug\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
@@ -2891,18 +2891,6 @@ debug\camera.obj: camera.cpp camera.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimediaWidgets\qvideowidgetcontrol.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimediaWidgets\qtmultimediawidgetsversion.h \
 		ui_camera.h \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QAction \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QButtonGroup \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QGridLayout \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QHeaderView \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QLabel \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QLineEdit \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QMenu \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QMenuBar \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QSpacerItem \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QStackedWidget \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimedia\QMediaService \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimediaWidgets\QCameraViewfinder \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimedia\QMediaMetaData \
@@ -2917,6 +2905,7 @@ debug\camera.obj: camera.cpp camera.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtTest\qbenchmarkmetric.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtTest\qtestsystem.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtGui\QWindow \
+		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtTest\qtest_gui.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtTest\qtestassert.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtTest\qtestevent.h \
@@ -3512,14 +3501,6 @@ debug\subscreen.obj: subscreen.cpp subscreen.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qprintengine.h \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtCore\QtNumeric \
 		ui_subscreen.h \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QAction \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QButtonGroup \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QGridLayout \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QHeaderView \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QLabel \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QLineEdit \
-		..\..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QStackedWidget \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimedia\QMediaService \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimediaWidgets\QCameraViewfinder \
 		..\..\..\..\5.3\msvc2012_opengl\include\QtMultimedia\QMediaMetaData \
