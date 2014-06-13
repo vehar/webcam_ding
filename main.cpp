@@ -50,12 +50,31 @@
 #include <QAction>
 #include <QDateTimeEdit>
 
+#define __DEBUG
+
+#ifdef __DEBUG
+#include <crtdbg.h>
+#define _CRTDBG_MAP_ALLOC // enable generation of debug heap alloc map
+#define new new( _NORMAL_BLOCK, __FILE__, __LINE__) // redefine "new" to get file names in output
+#endif
 
 int main(int argc, char *argv[])
 {
+#ifdef __DEBUG
+_CrtSetReportMode( _CRT_WARN, _CRTDBG_MODE_FILE ); // enable file output
+_CrtSetReportFile( _CRT_WARN, _CRTDBG_FILE_STDOUT ); // set file to stdout
+_CrtMemState _ms;
+_CrtMemCheckpoint(&_ms); // now forget about objects created before
+#endif
+
     QApplication app(argc, argv);
 
 qDebug() << "Date:" << QDate::currentDate();
+
+//---------------1-st screen--------------------------------
+Camera cam;
+cam.show();
+//----------------1-st screen end----------------------------
 
     //--------Test bench------------------------------------
     Subscreen sub;
@@ -63,10 +82,7 @@ qDebug() << "Date:" << QDate::currentDate();
     //--------Test bench end---------------------------------
 
 
-    //---------------1-st screen--------------------------------
-   Camera cam;
-   cam.show();
-    //----------------1-st screen end----------------------------
+
 
 /*
     //--------2-nd screen test-----------------------------------------------------
@@ -125,6 +141,8 @@ qDebug() << "Date:" << QDate::currentDate();
 */
     //--------------2-nd screen end------------------------
 
-
+#ifdef __DEBUG
+    _CrtDumpMemoryLeaks();
+#endif
     return app.exec();
 };

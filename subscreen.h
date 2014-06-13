@@ -31,10 +31,26 @@ public:
     void setupAdvancedAxesDemo(QCustomPlot *customPlot);
     void setupRealtimeDataDemo(QCustomPlot *customPlot);
 
+//public Q_SLOTS:
+    //void setCaptureMode(QCamera::CaptureModes mode);
+
+   // void load();
+   // void unload();
+
+   // void start();
+   // void stop();
 
 private:
+
+   // static QByteArray m_defaultDevice;
+
+    QPointer< QCamera > m_camera;
     Ui::SubscreenUi *ui;
     QTimer dataTimer;
+
+    QCamera *camera;
+    QCameraImageCapture *imageCapture;
+    QMediaRecorder* mediaRecorder;
 
 public slots:
 
@@ -43,7 +59,25 @@ public slots:
     void Enter_lineEdit_3();
     void Graphs_up();
 
+
+
     void realtimeDataSlot();
+
+    //void displayRecorderError();
+    //void displayCameraError();
+
+
+    void photo_view();
+    void setCamera(const QByteArray &cameraDevice);
+    void startCamera();
+    void stopCamera();
+    void updateCameraDevice(QAction *action);
+    void CreateCameraDevice(QByteArray &cameraDevice);
+    void CreateNextCameraDevice(QAction *action);
+
+
+   // void updateCameraState(QCamera::State);
+   // void updateCaptureMode();
 };
 
 

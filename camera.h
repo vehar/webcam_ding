@@ -82,6 +82,7 @@ private slots:
     void startCamera();
     void stopCamera();
 
+    void CamOn();
 
     void record();
     void pause();

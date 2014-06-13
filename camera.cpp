@@ -66,11 +66,13 @@ Camera::Camera(QWidget *parent): QMainWindow(parent), ui(new Ui::Camera), camera
                                 imageCapture(0),  mediaRecorder(0),  isCapturingImage(false),
                                 applicationExiting(false){
     ui->setupUi(this);
+
+    /*
     QByteArray cameraDevice;     //Camera devices:
     QActionGroup *videoDevicesGroup = new QActionGroup(this);
-
     QList< QByteArray > cams_arr = QCamera::availableDevices();
     QByteArray cam;
+*/
 
     setWindowTitle("I'm watching you!");
 
@@ -141,6 +143,7 @@ editPassword->setEchoMode(QLineEdit::Password);
 editPassword->setInputMethodHints(Qt::ImhHiddenText| Qt::ImhNoPredictiveText|Qt::ImhNoAutoUppercase);
 */
 
+/*
  if ( !cams_arr.contains( m_defaultDevice ) )
   {
         if ( cams_arr.count() == 0 )
@@ -161,19 +164,18 @@ editPassword->setInputMethodHints(Qt::ImhHiddenText| Qt::ImhNoPredictiveText|Qt:
         videoDeviceAction->setChecked(true);
         ui->menuDevices->addAction(videoDeviceAction);
 
-       /* //начало создания кнопочек
-        auto commandLinkButton = new QCommandLinkButton( QCamera::deviceDescription( webCam ) );
-        commandLinkButton->setProperty( "webCam", webCam );
-        connect( commandLinkButton, &QCommandLinkButton::clicked, [=]( bool )
-                 {
-                   m_defaultDevice = commandLinkButton->property( "webCam" ).toByteArray();
-                   m_selectDialog->accept();
-                  }
-               );
+       //начало создания кнопочек
+    //    auto commandLinkButton = new QCommandLinkButton( QCamera::deviceDescription( webCam ) );
+    //    commandLinkButton->setProperty( "webCam", webCam );
+    //    connect( commandLinkButton, &QCommandLinkButton::clicked, [=]( bool )
+     //            {
+    //               m_defaultDevice = commandLinkButton->property( "webCam" ).toByteArray();
+    //               m_selectDialog->accept();
+    //              }
+    //           );
        // select_ui.verticalLayout->addWidget( commandLinkButton ); //отрисовка кнопочек
-    */ }
-
-}
+ }// foreach end
+}// if end
    connect(ui->lineEdit_password, SIGNAL(returnPressed()), SLOT(EnterPassword()));
 
     connect(ui->action0, SIGNAL(triggered()), SLOT(CamDebug()));
@@ -193,6 +195,7 @@ editPassword->setInputMethodHints(Qt::ImhHiddenText| Qt::ImhNoPredictiveText|Qt:
      {
          CreateCameraDevice_R(cams_arr[1]);
      }
+*/
 }
 
 
@@ -213,6 +216,67 @@ void Camera::textChangedSlot(QString text)
  box->show();
  };
 
+void Camera::CamOn()
+{
+    QByteArray cameraDevice;     //Camera devices:
+    QActionGroup *videoDevicesGroup = new QActionGroup(this);
+
+    QList< QByteArray > cams_arr = QCamera::availableDevices();
+    QByteArray cam;
+
+    if ( !cams_arr.contains( m_defaultDevice ) )
+     {
+           if ( cams_arr.count() == 0 )
+           {
+               QMessageBox::critical( this, "Error", "Web Cams are not found!" );
+               deleteLater();
+               return;
+           }
+
+       foreach(cam, cams_arr)
+       {
+           //создание меню выбора камер
+           QString description = camera->deviceDescription(cam);
+           QAction *videoDeviceAction = new QAction(description, videoDevicesGroup);
+
+           videoDeviceAction->setCheckable(true);
+           videoDeviceAction->setData(QVariant(cam));
+           videoDeviceAction->setChecked(true);
+           ui->menuDevices->addAction(videoDeviceAction);
+
+          /* //начало создания кнопочек
+           auto commandLinkButton = new QCommandLinkButton( QCamera::deviceDescription( webCam ) );
+           commandLinkButton->setProperty( "webCam", webCam );
+           connect( commandLinkButton, &QCommandLinkButton::clicked, [=]( bool )
+                    {
+                      m_defaultDevice = commandLinkButton->property( "webCam" ).toByteArray();
+                      m_selectDialog->accept();
+                     }
+                  );
+          // select_ui.verticalLayout->addWidget( commandLinkButton ); //отрисовка кнопочек
+       */ }
+
+   }
+      connect(ui->lineEdit_password, SIGNAL(returnPressed()), SLOT(EnterPassword()));
+
+       connect(ui->action0, SIGNAL(triggered()), SLOT(CamDebug()));
+       connect(ui->action1, SIGNAL(triggered()), SLOT(EnterPassword()));
+
+       connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
+
+       delete imageCapture, mediaRecorder,camera; //удалить старые на всякий
+
+       //todo выводить сообщение о нехватке камер/ дать возможность распределять какую - на что выводить
+        if ( cams_arr.count() >= 1 )
+        {
+           CreateCameraDevice_L(cams_arr[0]);
+        }
+
+        if ( cams_arr.count() >= 2 )
+        {
+            CreateCameraDevice_R(cams_arr[1]);
+        }
+}
 
 void Camera::EnterPassword()
  {
@@ -229,6 +293,7 @@ void Camera::EnterPassword()
     ui->viewfinder_R->show();
     ui->viewfinder_L->show();
     //camera->start
+    CamOn();
     }
     else if(ui->lineEdit_password->text()=="`")
     {

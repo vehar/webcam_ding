@@ -24,16 +24,16 @@ QVector<double> x2(100), y2(100);
 QVector<double> x3, y3;
 
 
-Subscreen::Subscreen(QWidget *parent) :  QWidget(parent)
- {
+Subscreen::Subscreen(QWidget *parent) :  QWidget(parent),ui(new Ui::SubscreenUi)
+ {   
  ui->setupUi(this);
  setWindowTitle("Subscreen");
  //QRect screenres = QApplication::desktop()->screenGeometry(1);
 // move(QPoint(screenres.x(), screenres.y()));
 
-   setupAdvancedAxesDemo(ui->customPlot_2);
+setupAdvancedAxesDemo(ui->customPlot_2);
 setupRealtimeDataDemo(ui->customPlot);
-//setupRealtimeDataDemo(ui->customPlot_2);
+
 
 #ifndef __DEBUG
     showFullScreen();
@@ -51,14 +51,22 @@ setupRealtimeDataDemo(ui->customPlot);
    //  QCPAxisRect *wideAxisRect = new QCPAxisRect(ui->customPlot);
    //  QCPGraph *mainGraph1 =ui->customPlot->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
 
-}
+   //  QCPAxisRect *subRectLeft = new QCPAxisRect(ui->customPlot_2, false); // false means to not setup default axes
+   //  QCPAxisRect *subRectRight = new QCPAxisRect(ui->customPlot_2, false);
+   //  QCPBars *bars1 = new QCPBars(subRectRight->axis(QCPAxis::atBottom), subRectRight->axis(QCPAxis::atRight));
 
+#ifdef __DEBUG
+    // ui->stackedWidget->setCurrentIndex(0);
+    //   photo_view(); //camera
+#endif
+
+}
 
 
 Subscreen::~Subscreen()
 {
+   camera->stop();//TODO вырубать все (не 1)
     delete ui;
-   // camera->stop();//TODO вырубать все (не 1)
    // delete camera;
 }
 
@@ -90,28 +98,34 @@ void Subscreen::Enter_lineEdit_3()
  };
 
 
-static double g_cnt;
+
 
 void Subscreen::Graphs_up()
 {
     QVector<double> x_n(20), y_n(20);
+    QVector<double> xx3, yy3;
       double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
       double value0 = qSin(key);
-
-
+static double g_cnt = 0;
 
 if(g_cnt >= 0.8)
 {
     ui->customPlot_2->graph(0)->setPen(QPen(QColor(Qt::red), 2));
     ui->customPlot_2->graph(1)->setBrush(QColor(0, 255, 0, 100));
-    g_cnt=0;
+
 }
+if(g_cnt >= 1)
+{
+    g_cnt=0;
+    ui->stackedWidget->setCurrentIndex(0);
+    photo_view(); //camera
+}
+
 g_cnt+=0.3;
 
-x3 << 1 << 2 << 3 << 4;
-y3 << 5 << 4 << 3 << 2;
-   // setupAdvancedAxesDemo(ui->customPlot_2);
-   // setupRealtimeDataDemo(ui->customPlot_2);
+xx3 << 1 << 2 << 3 << 4;
+yy3 << 5 << 4 << 3 << 2;
+
 
     for (int i=0; i<x_n.size(); ++i)
     {
@@ -120,7 +134,7 @@ y3 << 5 << 4 << 3 << 2;
     }
 
     ui->customPlot_2->graph(0)->setData(x_n, y_n);
-  //ui->customPlot_2->graph(1)->setData(y_n, x_n);
+//  ui->customPlot_2->(0)->setData(xx3, yy3);
 
 //ui->customPlot_2->graph(2)->setData(x3, y3);
 //ui->customPlot_2->bars1->rescaleAxes();
@@ -132,6 +146,7 @@ y3 << 5 << 4 << 3 << 2;
 ui->customPlot_2->replot();
 }
 
+//QCPAxisRect *subRectLeft = new QCPAxisRect(Subscreen::ui->customPlot_2, false); // false means to not setup default axes
 
 
 
@@ -156,8 +171,8 @@ void Subscreen::setupAdvancedAxesDemo(QCustomPlot *customPlot)
   QCPAxisRect *subRectRight = new QCPAxisRect(customPlot, false);
   subLayout->addElement(0, 0, subRectLeft);
   subLayout->addElement(0, 1, subRectRight);
-  subRectRight->setMaximumSize(150, 150); // make bottom right axis rect size fixed 150x150
-  subRectRight->setMinimumSize(150, 150); // make bottom right axis rect size fixed 150x150
+ // subRectRight->setMaximumSize(150, 150); // make bottom right axis rect size fixed 150x150
+ // subRectRight->setMinimumSize(150, 150); // make bottom right axis rect size fixed 150x150
   // setup axes in sub layout axis rects:
   subRectLeft->addAxes(QCPAxis::atBottom | QCPAxis::atLeft);
   subRectRight->addAxes(QCPAxis::atBottom | QCPAxis::atRight);
@@ -351,6 +366,93 @@ void Subscreen::realtimeDataSlot()
   }
 }
 
+
+
+void Subscreen::photo_view()
+{
+    QByteArray cameraDevice;     //Camera devices:
+    QActionGroup *videoDevicesGroup = new QActionGroup(this);
+    QList< QByteArray > cams_arr = QCamera::availableDevices();
+    QByteArray cam;
+
+ui->viewfinder->show();
+
+    ////////////camera///////////////////////////
+       //if ( !cams_arr.contains( m_defaultDevice ) )
+      // {
+              if ( cams_arr.count() == 0 )
+              {
+                  QMessageBox::critical( this, "Error", "Web Cams are not found!" );
+                  deleteLater();
+                  return;
+              }
+
+qDebug() << "CamsCnt:" << cams_arr.count();
+
+        // connect(ui->lineEdit_password, SIGNAL(returnPressed()), SLOT(EnterPassword()));
+         // connect(ui->action0, SIGNAL(triggered()), SLOT(CamDebug()));
+         // connect(ui->action1, SIGNAL(triggered()), SLOT(EnterPassword()));
+
+          //connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
+          //!!!!delete imageCapture, mediaRecorder,camera; //удалить старые на всякий
+
+connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
+
+          //todo выводить сообщение о нехватке камер/ дать возможность распределять какую - на что выводить
+           if ( cams_arr.count() >= 1 ) //>=3
+           {
+              CreateCameraDevice(cams_arr[0]); //2
+           }
+
+   ////////////camera end///////////////////////////
+}
+
+void Subscreen::CreateCameraDevice(QByteArray &cameraDevice)
+{
+    camera = new QCamera(cameraDevice); //создать новый
+    camera->setViewfinder(ui->viewfinder);
+    camera->start();
+}
+
+void Subscreen::CreateNextCameraDevice(QAction *action)
+{
+    camera = new QCamera(action->data().toByteArray()); //создать новый
+    camera->setViewfinder(ui->viewfinder);
+    camera->start();
+}
+
+
+void Subscreen::updateCameraDevice(QAction *action)
+{
+    //setCamera(action->data().toByteArray()); //динамически обноляет при  переключении
+}
+
+
+void Subscreen::startCamera() //in file menu
+{
+    camera->start();
+}
+void Subscreen::stopCamera() //in file menu
+{
+    camera->stop();
+}
+
+
+//UNUSED
+
+void Subscreen::setCamera(const QByteArray &cameraDevice)
+{
+    delete imageCapture; //удалить старые
+    delete mediaRecorder;
+    delete camera;
+
+    camera = new QCamera(cameraDevice); //создать новый
+    camera->setViewfinder(ui->viewfinder);
+
+#ifdef __DEBUG
+    camera->start();
+#endif
+}
 
 /*
 void Camera::closeEvent(QCloseEvent *event)
