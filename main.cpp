@@ -75,11 +75,13 @@ qDebug() << "Date:" << QDate::currentDate();
 
     //--------Test bench------------------------------------
     Subscreen sub;
+    QShortcut shtcut_sum(Qt::Key_Escape, &sub, SLOT(close()), 0, Qt::ApplicationShortcut);
     sub.show();
     //--------Test bench end---------------------------------
 
     //---------------1-st screen--------------------------------
     Camera cam;
+    //QShortcut shtcut_cam(Qt::Key_Escape, &cam, SLOT(close()), 0, Qt::ApplicationShortcut); //одновременно не работает
     cam.show();
     //----------------1-st screen end----------------------------
 

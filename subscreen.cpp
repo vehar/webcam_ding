@@ -34,6 +34,7 @@ Subscreen::Subscreen(QWidget *parent) :  QWidget(parent),ui(new Ui::SubscreenUi)
 setupAdvancedAxesDemo(ui->customPlot_2);
 setupRealtimeDataDemo(ui->customPlot);
 
+QShortcut shtcut(Qt::Key_Escape, this, SLOT(close()), 0, Qt::ApplicationShortcut);
 
 #ifndef __DEBUG
     showFullScreen();

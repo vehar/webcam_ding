@@ -73,6 +73,7 @@ private:
 
 public slots:
   void CamDebug();
+  void keyPressEvent(QKeyEvent *event);
   void textChangedSlot(QString text);
 void EnterPassword();
 
@@ -124,7 +125,7 @@ private slots:
     void imageSaved(int id, const QString &fileName);
 
 protected:
-    void keyPressEvent(QKeyEvent *event);
+    //void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     void closeEvent(QCloseEvent *event);
 

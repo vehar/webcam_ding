@@ -54,7 +54,7 @@
 #include <QtTest/QTest>
 
 
-//#define __DEBUG
+#define __DEBUG
 
 #if (defined(Q_WS_MAEMO_6)) && QT_VERSION >= 0x040700
 #define HAVE_CAMERA_BUTTONS
@@ -131,6 +131,13 @@ Camera::~Camera()
     delete camera;
 }
 
+void Camera::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Escape)
+    {
+        this->close();
+    }
+}
 
 void Camera::textChangedSlot(QString text)
  {
@@ -311,6 +318,7 @@ void Camera::setCamera(const QByteArray &cameraDevice)
 #endif
 }
 
+/*
 void Camera::keyPressEvent(QKeyEvent * event)
 {
     if (event->isAutoRepeat())
@@ -336,7 +344,7 @@ void Camera::keyPressEvent(QKeyEvent * event)
     default:
         QMainWindow::keyPressEvent(event);
     }
-}
+}*/
 
 void Camera::keyReleaseEvent(QKeyEvent *event)
 {
