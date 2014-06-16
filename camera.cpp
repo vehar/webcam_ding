@@ -54,7 +54,7 @@
 #include <QtTest/QTest>
 
 
-#define __DEBUG
+//#define __DEBUG
 
 #if (defined(Q_WS_MAEMO_6)) && QT_VERSION >= 0x040700
 #define HAVE_CAMERA_BUTTONS
