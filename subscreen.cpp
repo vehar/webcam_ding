@@ -20,7 +20,7 @@
 
 QVector<double> x1a(20), y1a(20);
 QVector<double> x1b(50), y1b(50);
-QVector<double> x2(100), y2(100);
+QVector<double> x2(200), y2(200);
 QVector<double> x3, y3;
 
 
@@ -28,8 +28,8 @@ Subscreen::Subscreen(QWidget *parent) :  QWidget(parent),ui(new Ui::SubscreenUi)
  {   
  ui->setupUi(this);
  setWindowTitle("Subscreen");
- //QRect screenres = QApplication::desktop()->screenGeometry(1);
-// move(QPoint(screenres.x(), screenres.y()));
+ QRect screenres = QApplication::desktop()->screenGeometry(1);
+ move(QPoint(screenres.x(), screenres.y()));
 
 setupAdvancedAxesDemo(ui->customPlot_2);
 setupRealtimeDataDemo(ui->customPlot);
@@ -77,6 +77,10 @@ void Subscreen::Enter_lineEdit_1()
     {
     Graphs_up();
     }
+    else
+    {
+      QMessageBox::critical( this, "Error", "Вы ввели неверное Р!" );
+    }
  };
 
 void Subscreen::Enter_lineEdit_2()
@@ -85,16 +89,23 @@ void Subscreen::Enter_lineEdit_2()
     {
     Graphs_up();
     }
+    else
+    {
+      QMessageBox::critical( this, "Error", "Вы ввели неверное Q!" );
+    }
 
  };
 
 void Subscreen::Enter_lineEdit_3()
  {
-   // if(ui->lineEdit_3->text()=="N") //if password correct
-  //  {
+    if(ui->lineEdit_3->text()=="N") //if password correct
+    {
     Graphs_up();
-  //  }
-
+    }
+    else
+    {
+      QMessageBox::critical( this, "Error", "Вы ввели неверное N!" );
+    }
  };
 
 
@@ -102,13 +113,14 @@ void Subscreen::Enter_lineEdit_3()
 
 void Subscreen::Graphs_up()
 {
-    QVector<double> x_n(20), y_n(20);
+    QVector<double> x_n(30), y_n(30);
+    QVector<double> x2(200), y2(200);
     QVector<double> xx3, yy3;
-      double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
-      double value0 = qSin(key);
+    double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
+    double value0 = qSin(key);
 static double g_cnt = 0;
 
-if(g_cnt >= 0.8)
+if(g_cnt >= 0.5)
 {
     ui->customPlot_2->graph(0)->setPen(QPen(QColor(Qt::red), 2));
     ui->customPlot_2->graph(1)->setBrush(QColor(0, 255, 0, 100));
@@ -121,11 +133,7 @@ if(g_cnt >= 1)
     photo_view(); //camera
 }
 
-g_cnt+=0.3;
-
-xx3 << 1 << 2 << 3 << 4;
-yy3 << 5 << 4 << 3 << 2;
-
+g_cnt+=0.5;
 
     for (int i=0; i<x_n.size(); ++i)
     {
@@ -134,6 +142,14 @@ yy3 << 5 << 4 << 3 << 2;
     }
 
     ui->customPlot_2->graph(0)->setData(x_n, y_n);
+
+      qsrand(g_cnt*3);
+    for (int i=0; i<x2.size(); ++i)
+    {
+      x2[i] = i/(double)x2.size()*10;
+      y2[i] = qrand()/(double)RAND_MAX-0.5+y2[qAbs(i-1)];
+    }
+    ui->customPlot_2->graph(2)->setData(x2, y2);
 //  ui->customPlot_2->(0)->setData(xx3, yy3);
 
 //ui->customPlot_2->graph(2)->setData(x3, y3);
@@ -296,10 +312,11 @@ void Subscreen::setupRealtimeDataDemo(QCustomPlot *customPlot)
   customPlot->graph(3)->setScatterStyle(QCPScatterStyle::ssDisc);
 
   customPlot->xAxis->setTickLabelType(QCPAxis::ltDateTime);
-  customPlot->xAxis->setDateTimeFormat("hh:mm:ss");
+  customPlot->xAxis->setDateTimeFormat("mm:ss");
   customPlot->xAxis->setAutoTickStep(false);
   customPlot->xAxis->setTickStep(2);
   customPlot->axisRect()->setupFullAxesBox();
+
 
   // make left and bottom axes transfer their ranges to right and top axes:
   connect(customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), customPlot->xAxis2, SLOT(setRange(QCPRange)));
@@ -399,9 +416,9 @@ qDebug() << "CamsCnt:" << cams_arr.count();
 connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
 
           //todo выводить сообщение о нехватке камер/ дать возможность распределять какую - на что выводить
-           if ( cams_arr.count() >= 1 ) //>=3
+           if ( cams_arr.count() >= 2 ) //>=3
            {
-              CreateCameraDevice(cams_arr[0]); //2
+              CreateCameraDevice(cams_arr[1]); //2
            }
 
    ////////////camera end///////////////////////////

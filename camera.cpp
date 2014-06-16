@@ -54,7 +54,7 @@
 #include <QtTest/QTest>
 
 
-#define __DEBUG
+//#define __DEBUG
 
 #if (defined(Q_WS_MAEMO_6)) && QT_VERSION >= 0x040700
 #define HAVE_CAMERA_BUTTONS
@@ -67,12 +67,12 @@ Camera::Camera(QWidget *parent): QMainWindow(parent), ui(new Ui::Camera), camera
                                 applicationExiting(false){
     ui->setupUi(this);
 
-    /*
+////---
     QByteArray cameraDevice;     //Camera devices:
     QActionGroup *videoDevicesGroup = new QActionGroup(this);
     QList< QByteArray > cams_arr = QCamera::availableDevices();
     QByteArray cam;
-*/
+///----
 
     setWindowTitle("I'm watching you!");
 
@@ -143,7 +143,7 @@ editPassword->setEchoMode(QLineEdit::Password);
 editPassword->setInputMethodHints(Qt::ImhHiddenText| Qt::ImhNoPredictiveText|Qt::ImhNoAutoUppercase);
 */
 
-/*
+///----
  if ( !cams_arr.contains( m_defaultDevice ) )
   {
         if ( cams_arr.count() == 0 )
@@ -178,6 +178,7 @@ editPassword->setInputMethodHints(Qt::ImhHiddenText| Qt::ImhNoPredictiveText|Qt:
 }// if end
    connect(ui->lineEdit_password, SIGNAL(returnPressed()), SLOT(EnterPassword()));
 
+/*
     connect(ui->action0, SIGNAL(triggered()), SLOT(CamDebug()));
     connect(ui->action1, SIGNAL(triggered()), SLOT(EnterPassword()));
 
@@ -194,8 +195,9 @@ editPassword->setInputMethodHints(Qt::ImhHiddenText| Qt::ImhNoPredictiveText|Qt:
      if ( cams_arr.count() >= 2 )
      {
          CreateCameraDevice_R(cams_arr[1]);
-     }
-*/
+     }*/
+///------
+
 }
 
 
@@ -224,8 +226,8 @@ void Camera::CamOn()
     QList< QByteArray > cams_arr = QCamera::availableDevices();
     QByteArray cam;
 
-    if ( !cams_arr.contains( m_defaultDevice ) )
-     {
+   // if ( !cams_arr.contains( m_defaultDevice ) )
+     //{
            if ( cams_arr.count() == 0 )
            {
                QMessageBox::critical( this, "Error", "Web Cams are not found!" );
@@ -233,6 +235,7 @@ void Camera::CamOn()
                return;
            }
 
+           /*
        foreach(cam, cams_arr)
        {
            //создание меню выбора камер
@@ -254,17 +257,16 @@ void Camera::CamOn()
                      }
                   );
           // select_ui.verticalLayout->addWidget( commandLinkButton ); //отрисовка кнопочек
-       */ }
+        }
 
-   }
-      connect(ui->lineEdit_password, SIGNAL(returnPressed()), SLOT(EnterPassword()));
+       */
+   //}
 
-       connect(ui->action0, SIGNAL(triggered()), SLOT(CamDebug()));
-       connect(ui->action1, SIGNAL(triggered()), SLOT(EnterPassword()));
-
-       connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
-
-       delete imageCapture, mediaRecorder,camera; //удалить старые на всякий
+     // connect(ui->lineEdit_password, SIGNAL(returnPressed()), SLOT(EnterPassword()));
+         // connect(ui->action0, SIGNAL(triggered()), SLOT(CamDebug()));
+      // connect(ui->action1, SIGNAL(triggered()), SLOT(EnterPassword()));
+         connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
+         delete imageCapture, mediaRecorder,camera; //удалить старые на всякий
 
        //todo выводить сообщение о нехватке камер/ дать возможность распределять какую - на что выводить
         if ( cams_arr.count() >= 1 )
@@ -276,6 +278,7 @@ void Camera::CamOn()
         {
             CreateCameraDevice_R(cams_arr[1]);
         }
+
 }
 
 void Camera::EnterPassword()

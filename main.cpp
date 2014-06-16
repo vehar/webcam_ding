@@ -50,7 +50,7 @@
 #include <QAction>
 #include <QDateTimeEdit>
 
-#define __DEBUG
+//#define __DEBUG
 
 #ifdef __DEBUG
 #include <crtdbg.h>
@@ -71,17 +71,17 @@ _CrtMemCheckpoint(&_ms); // now forget about objects created before
 
 qDebug() << "Date:" << QDate::currentDate();
 
-//---------------1-st screen--------------------------------
-Camera cam;
-cam.show();
-//----------------1-st screen end----------------------------
+
 
     //--------Test bench------------------------------------
     Subscreen sub;
     sub.show();
     //--------Test bench end---------------------------------
 
-
+    //---------------1-st screen--------------------------------
+    Camera cam;
+    cam.show();
+    //----------------1-st screen end----------------------------
 
 
 /*
