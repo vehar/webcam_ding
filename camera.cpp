@@ -92,50 +92,15 @@ Camera::Camera(QWidget *parent): QMainWindow(parent), ui(new Ui::Camera), camera
     showFullScreen();
     setWindowFlags(Qt::FramelessWindowHint);// убираем строку заголовка
 #endif
-   // ui->menubar->hide(); //Debug
+    //ui->menubar->hide(); //Debug
     //asterisks will be shown when values are entered
     //ui->lineEdit_password->setEchoMode(QLineEdit::Password); //Debug
 
-
-///////////////////error
-   /* QWidget *centralWidget = new QWidget();
-    QHBoxLayout *layout = new QHBoxLayout();
-    centralWidget->setLayout(layout);
-    QLineEdit *lineEdit = new QLineEdit(centralWidget);
-        //Set QLineEdit Echo Mode Here so that
-        //asterisks will be shown when values are entered
-    lineEdit->setEchoMode(QLineEdit::Password);
-       //Add to horizontal layout to center qLineEdit
-    layout->addWidget(lineEdit);
-    lineEdit->setFixedSize(300, 20);
-    setCentralWidget(centralWidget);*/
-/////////////////////////
 
 ui->viewfinder_R->hide();
 ui->viewfinder_L->hide();
 
 ui->lineEdit_password->setAlignment(Qt::AlignVCenter);
-
-//цвет не меняется
-QPalette *pal = new QPalette();
-pal->setColor(QPalette::Base,Qt::yellow);
-pal->setColor(QPalette::Text,Qt::red);
-ui->label_password->setPalette(*pal);
-
-
-//auto commandLinkButton = new QCommandLinkButton( QCamera::deviceDescription( webCam ) );
-//commandLinkButton->setProperty( "webCam", webCam );
-//ui.verticalLayout->addWidget( commandLinkButton ); //отрисовка кнопочек
-
-/*
-echoLineEdit = new QLineEdit;
-echoLineEdit->setFocus();
- QGroupBox *echoGroup = new QGroupBox(tr("Echo"));
-QGridLayout *echoLayout = new QGridLayout;
- echoLayout->addWidget(echoLineEdit, 1, 0, 1, 2);
- QGridLayout *layout = new QGridLayout;
-     layout->addWidget(echoGroup, 0, 0);
-*/
 
 /*
 editPassword = new QLineEdit(this);
@@ -152,52 +117,9 @@ editPassword->setInputMethodHints(Qt::ImhHiddenText| Qt::ImhNoPredictiveText|Qt:
             deleteLater();
             return;
         }
-
-    foreach(cam, cams_arr)
-    {
-        //создание меню выбора камер
-        QString description = camera->deviceDescription(cam);
-        QAction *videoDeviceAction = new QAction(description, videoDevicesGroup);
-
-        videoDeviceAction->setCheckable(true);
-        videoDeviceAction->setData(QVariant(cam));
-        videoDeviceAction->setChecked(true);
-        ui->menuDevices->addAction(videoDeviceAction);
-
-       //начало создания кнопочек
-    //    auto commandLinkButton = new QCommandLinkButton( QCamera::deviceDescription( webCam ) );
-    //    commandLinkButton->setProperty( "webCam", webCam );
-    //    connect( commandLinkButton, &QCommandLinkButton::clicked, [=]( bool )
-     //            {
-    //               m_defaultDevice = commandLinkButton->property( "webCam" ).toByteArray();
-    //               m_selectDialog->accept();
-    //              }
-    //           );
-       // select_ui.verticalLayout->addWidget( commandLinkButton ); //отрисовка кнопочек
- }// foreach end
-}// if end
+}
    connect(ui->lineEdit_password, SIGNAL(returnPressed()), SLOT(EnterPassword()));
-
-/*
-    connect(ui->action0, SIGNAL(triggered()), SLOT(CamDebug()));
-    connect(ui->action1, SIGNAL(triggered()), SLOT(EnterPassword()));
-
-    connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
-
-    delete imageCapture, mediaRecorder,camera; //удалить старые на всякий
-
-    //todo выводить сообщение о нехватке камер/ дать возможность распределять какую - на что выводить
-     if ( cams_arr.count() >= 1 )
-     {
-        CreateCameraDevice_L(cams_arr[0]);
-     }
-
-     if ( cams_arr.count() >= 2 )
-     {
-         CreateCameraDevice_R(cams_arr[1]);
-     }*/
 ///------
-
 }
 
 
@@ -266,7 +188,7 @@ void Camera::CamOn()
          // connect(ui->action0, SIGNAL(triggered()), SLOT(CamDebug()));
       // connect(ui->action1, SIGNAL(triggered()), SLOT(EnterPassword()));
          connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
-         delete imageCapture, mediaRecorder,camera; //удалить старые на всякий
+       //  delete imageCapture, mediaRecorder,camera; //удалить старые на всякий
 
        //todo выводить сообщение о нехватке камер/ дать возможность распределять какую - на что выводить
         if ( cams_arr.count() >= 1 )

@@ -16,7 +16,7 @@
 
 #include <QtTest/QTest>
 
-#define __DEBUG
+//#define __DEBUG
 
 QVector<double> x1a(20), y1a(20);
 QVector<double> x1b(50), y1b(50);
@@ -416,9 +416,9 @@ qDebug() << "CamsCnt:" << cams_arr.count();
 connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
 
           //todo выводить сообщение о нехватке камер/ дать возможность распределять какую - на что выводить
-           if ( cams_arr.count() >= 2 ) //>=3
+           if ( cams_arr.count() >= 3 ) //>=3
            {
-              CreateCameraDevice(cams_arr[1]); //2
+              CreateCameraDevice(cams_arr[2]); //2
            }
 
    ////////////camera end///////////////////////////
