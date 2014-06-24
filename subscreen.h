@@ -40,7 +40,7 @@ public:
    // void start();
    // void stop();
 
-private:
+//private:
 
    // static QByteArray m_defaultDevice;
 
@@ -52,12 +52,33 @@ private:
     QCameraImageCapture *imageCapture;
     QMediaRecorder* mediaRecorder;
 
+    QPixmap m_pixmap;
+
+    QTimer *m_timer;
+
 public slots:
 
     void Enter_lineEdit_1();
     void Enter_lineEdit_2();
     void Enter_lineEdit_3();
     void Graphs_up();
+
+    void Surnames();
+    void Capture_photo();
+    void Show_photo(QString img_file_name);
+    void Print();
+
+    void Dbg();
+    void Recapture();
+
+
+    void Focus_2();
+    void Focus_3();
+    void Focus_4();
+    void Focus_Btn();
+
+    void Print_photo();
+
 
 
 

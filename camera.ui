@@ -98,14 +98,15 @@
         <item row="0" column="0">
          <widget class="QCameraViewfinder" name="viewfinder_L" native="true">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(199, 255, 198);</string>
+           <string notr="true">background-color: rgb(43, 43, 43);</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
          <widget class="QCameraViewfinder" name="viewfinder_R" native="true">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(199, 255, 198);</string>
+           <string notr="true">background-color: rgb(199, 255, 198);
+background-color: rgb(43, 43, 43);</string>
           </property>
          </widget>
         </item>
@@ -240,7 +241,7 @@ color: rgb(43, 255, 28);</string>
      <x>0</x>
      <y>0</y>
      <width>570</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDebug">

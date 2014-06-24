@@ -102,13 +102,14 @@ public:
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         viewfinder_L = new QCameraViewfinder(page_video);
         viewfinder_L->setObjectName(QStringLiteral("viewfinder_L"));
-        viewfinder_L->setStyleSheet(QStringLiteral("background-color: rgb(199, 255, 198);"));
+        viewfinder_L->setStyleSheet(QStringLiteral("background-color: rgb(43, 43, 43);"));
 
         gridLayout->addWidget(viewfinder_L, 0, 0, 1, 1);
 
         viewfinder_R = new QCameraViewfinder(page_video);
         viewfinder_R->setObjectName(QStringLiteral("viewfinder_R"));
-        viewfinder_R->setStyleSheet(QStringLiteral("background-color: rgb(199, 255, 198);"));
+        viewfinder_R->setStyleSheet(QLatin1String("background-color: rgb(199, 255, 198);\n"
+"background-color: rgb(43, 43, 43);"));
 
         gridLayout->addWidget(viewfinder_R, 0, 1, 1, 1);
 
@@ -171,7 +172,7 @@ public:
         Camera->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Camera);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 570, 21));
+        menubar->setGeometry(QRect(0, 0, 570, 25));
         menuDebug = new QMenu(menubar);
         menuDebug->setObjectName(QStringLiteral("menuDebug"));
         menuDevices = new QMenu(menubar);

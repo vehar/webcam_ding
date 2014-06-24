@@ -13,6 +13,8 @@
 #include <QPalette>
 
 #include <QtWidgets>
+#include <QPrintDialog>
+#include <QPrinter>
 
 #include <QtTest/QTest>
 
@@ -28,6 +30,7 @@ Subscreen::Subscreen(QWidget *parent) :  QWidget(parent),ui(new Ui::SubscreenUi)
  {   
  ui->setupUi(this);
  setWindowTitle("Subscreen");
+
  QRect screenres = QApplication::desktop()->screenGeometry(1);
  move(QPoint(screenres.x(), screenres.y()));
 
@@ -35,6 +38,8 @@ setupAdvancedAxesDemo(ui->customPlot_2);
 setupRealtimeDataDemo(ui->customPlot);
 
 QShortcut shtcut(Qt::Key_Escape, this, SLOT(close()), 0, Qt::ApplicationShortcut);
+
+
 
 #ifndef __DEBUG
     showFullScreen();
@@ -49,6 +54,51 @@ QShortcut shtcut(Qt::Key_Escape, this, SLOT(close()), 0, Qt::ApplicationShortcut
      connect(ui->lineEdit_2, SIGNAL(returnPressed()), SLOT(Enter_lineEdit_2()));
      connect(ui->lineEdit_3, SIGNAL(returnPressed()), SLOT(Enter_lineEdit_3()));
 
+     connect(ui->Photo_Button, SIGNAL(pressed()), SLOT(Capture_photo()));
+     connect(ui->Print_Button, SIGNAL(pressed()), SLOT(Print()));
+
+     connect(ui->lineEdit_Surname_1, SIGNAL(returnPressed()), SLOT(Focus_2()));
+      connect(ui->lineEdit_Surname_2, SIGNAL(returnPressed()), SLOT(Focus_3()));
+       connect(ui->lineEdit_Surname_3, SIGNAL(returnPressed()), SLOT(Focus_4()));
+        connect(ui->lineEdit_Surname_4, SIGNAL(returnPressed()), SLOT(Focus_Btn()));
+         //connect(ui->Print_Button, SIGNAL(returnPressed()), SLOT(Print()));
+
+         connect(ui->Photo_Prev, SIGNAL(pressed()), SLOT(Recapture())); //recapture
+         connect(ui->Photo_Next, SIGNAL(pressed()), SLOT(Surnames())); //recapture
+
+         connect(ui->Debug_btn, SIGNAL(pressed()), SLOT(Dbg())); //
+
+      //   imageCapture = new QCameraImageCapture(camera);
+       //  imageCapture->setCaptureDestination( QCameraImageCapture::CaptureToFile );
+       //  camera->setCaptureMode(QCamera::CaptureStillImage);
+//connect(imageCapture, SIGNAL(imageCaptured()), SLOT(Surnames())); //
+
+         /*
+         connect( ui->viewfinder, &QCameraImageCapture::imageSaved, [=]()
+             {
+             QString fileName = QCoreApplication::applicationDirPath() + "/image.jpg";
+
+                 QFile imageFile( fileName );
+
+                 if ( imageFile.exists() )
+                 {
+                     m_pixmap = QPixmap::fromImage( QImage( fileName ).mirrored( true, false ) );
+                     ui->picture->setPixmap( m_pixmap.scaled( ui->picture->width(), ui->picture->height(), Qt::KeepAspectRatio ) );
+                     imageFile.remove();
+                 }
+                 else
+                 {
+                     QMessageBox::critical( this, "Error", "Image file are not found!" );
+
+                     deleteLater();
+                     return;
+                 }
+             }*/
+
+
+        // connect( imageCapture, &QCameraImageCapture::imageCaptured, [=]( int id, const QImage &image )
+
+
    //  QCPAxisRect *wideAxisRect = new QCPAxisRect(ui->customPlot);
    //  QCPGraph *mainGraph1 =ui->customPlot->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
 
@@ -56,9 +106,19 @@ QShortcut shtcut(Qt::Key_Escape, this, SLOT(close()), 0, Qt::ApplicationShortcut
    //  QCPAxisRect *subRectRight = new QCPAxisRect(ui->customPlot_2, false);
    //  QCPBars *bars1 = new QCPBars(subRectRight->axis(QCPAxis::atBottom), subRectRight->axis(QCPAxis::atRight));
 
+
+       //  camera->start(); // Viewfinder frames start flowing
+        // imageCapture = new QCameraImageCapture(camera);
+       //  imageCapture->setCaptureDestination( QCameraImageCapture::CaptureToFile );
+
+        // camera->setCaptureMode(QCamera::CaptureStillImage);
+
+
+
+
 #ifdef __DEBUG
     // ui->stackedWidget->setCurrentIndex(0);
-    //   photo_view(); //camera
+    // photo_view(); //camera
 #endif
 
 }
@@ -67,10 +127,202 @@ QShortcut shtcut(Qt::Key_Escape, this, SLOT(close()), 0, Qt::ApplicationShortcut
 Subscreen::~Subscreen()
 {
    camera->stop();//TODO вырубать все (не 1)
-    delete ui;
-   // delete camera;
+   delete camera;
+   delete ui;
 }
 
+void Subscreen::Focus_2()
+{
+ ui->lineEdit_Surname_2->setFocus();
+}
+void Subscreen::Focus_3()
+{
+ ui->lineEdit_Surname_3->setFocus();
+}
+void Subscreen::Focus_4()
+{
+ ui->lineEdit_Surname_4->setFocus();
+}
+void Subscreen::Focus_Btn()
+{
+ ui->Print_Button->setFocus();
+}
+
+void Subscreen::Capture_photo()
+{
+    QString Img_fileName = QCoreApplication::applicationDirPath() + "/image.jpg";
+
+    camera->start(); // Viewfinder frames start flowing
+    imageCapture = new QCameraImageCapture(camera);
+    imageCapture->setCaptureDestination( QCameraImageCapture::CaptureToFile );
+    camera->setCaptureMode(QCamera::CaptureStillImage);
+
+
+    //on half pressed shutter button
+    camera->searchAndLock();
+    //on shutter button pressed
+    imageCapture->capture(Img_fileName);
+    //on shutter button released
+    camera->unlock();
+
+    //ui->stackedWidget_Under->setCurrentIndex(1);
+    ui->stackedWidget->setCurrentIndex(1);
+   // Show_photo(Img_fileName);
+
+   // connect(imageCapture, SIGNAL(&QCameraImageCapture::imageCaptured()), SLOT(Dbg())); //
+   // connect( imageCapture, &QCameraImageCapture::imageCaptured, Dbg()( int id, const QImage &image )
+
+    //Dbg();
+}
+
+void Subscreen::Recapture()
+{
+    //желательно imageFile.remove();
+/*
+    QString Img_fileName = QCoreApplication::applicationDirPath() + "/fon.png";
+    QFile imageFile( Img_fileName );
+
+                if ( imageFile.exists() )
+                {
+                    m_pixmap = QPixmap::fromImage( QImage( Img_fileName ));
+                    ui->picture->setPixmap( m_pixmap.scaled( ui->picture->width(), ui->picture->height(), Qt::IgnoreAspectRatio ) );
+                }
+*/
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void Subscreen::Dbg()
+{
+    QString Img_fileName = QCoreApplication::applicationDirPath() + "/image.jpg";
+    QFile imageFile( Img_fileName );
+
+                if ( imageFile.exists() )
+                {
+                    m_pixmap = QPixmap::fromImage( QImage( Img_fileName ).mirrored( true, false ) );
+                    ui->picture->setPixmap( m_pixmap.scaled( ui->picture->width(), ui->picture->height(), Qt::IgnoreAspectRatio ) );
+                    //imageFile.remove();
+                }
+                else
+                {
+                    QMessageBox::critical( this, "Error", "Image file are not found!" );
+                }
+}
+
+void Subscreen::Show_photo(QString img_file_name)
+{
+    QFile imageFile( img_file_name );
+
+                if ( imageFile.exists() )
+                {
+                    m_pixmap = QPixmap::fromImage( QImage( img_file_name ).mirrored( true, false ) );
+                    ui->picture->setPixmap( m_pixmap.scaled( ui->picture->width(), ui->picture->height(), Qt::KeepAspectRatio ) );
+                    //imageFile.remove();
+                }
+                else
+                {
+                    QMessageBox::critical( this, "Error", "Image file are not found!" );
+                    deleteLater();
+                   // return;
+                }
+}
+
+void Subscreen::Print_photo()
+{
+    QPrinter printer;
+
+    printer.setOutputFormat(QPrinter::NativeFormat);
+    //printer->setPageSize(QPrinter::A5);
+   // printer->setOrientation(QPrinter::Landscape);
+           // название протокола формируем согласно заводскому номеру и году
+   //printer.setOutputFileName( "protocol/" + m_ui->labelNumberZav_znach->text() + m_ui->labelNumberDec_znach->text()+".pdf");  //по другому printer.setOutputFileName("Test.pdf");
+   printer.setOutputFileName( "Test print.pdf");
+
+    QPrintDialog printDialog(&printer, this);
+
+      if (printDialog.exec())
+      {
+           // объект отрисовки
+           QPainter painter;
+
+           // проверка открытия для редактора
+           if (! painter.begin(&printer))
+           {
+               // открытие принтера проверим
+               qWarning("Ошибка открытия принтера!");
+               return; // Выходим
+           }
+
+           // Сообственно все, откроется диалог где указывать принтер нужно, далее рисуем просто наш отчет
+           //Теперь отрисуем отчет на этом принтере
+          painter.setFont(QFont("Arial", 14)); //шрифт
+          painter.setPen(QPen(2)); // толщина линий таблицы
+          int y_pdf = 30;
+          int WtabPdf=360;
+          int X_oneTab = 10;
+          int X_twoTab = 370;
+          int H_tab = 25;
+          int W_pic = 720;
+          int H_pic = W_pic;
+
+
+         // painter.drawText(230,y_pdf, "Протокол № " + ui->lineEdit_Surname_1->text());
+
+          QString Img_fileName = QCoreApplication::applicationDirPath() + "/image.jpg";
+          m_pixmap = QPixmap::fromImage( QImage( Img_fileName ).mirrored( true, false ) );
+
+          QRect rectfont_5 = QRect(X_oneTab,y_pdf,WtabPdf,H_tab);
+          rectfont_5.setRect(X_oneTab,y_pdf,W_pic,H_pic);
+          painter.drawRect(rectfont_5);
+          painter.drawPixmap(rectfont_5,m_pixmap);
+
+
+
+          y_pdf +=H_pic+H_tab;
+          QRect rectfont_1 = QRect(X_oneTab,y_pdf,WtabPdf,H_tab);
+          painter.drawRect(rectfont_1);
+          painter.drawText(rectfont_1, Qt::AlignLeft ," Участник № "+QString::number(1));
+          rectfont_1.setRect(X_twoTab,y_pdf,WtabPdf,H_tab);
+          painter.drawRect(rectfont_1);
+          painter.drawText(rectfont_1, Qt::AlignLeft ," "+ui->lineEdit_Surname_1->text());
+
+          y_pdf +=H_tab;
+          QRect rectfont_2 = QRect(X_oneTab,y_pdf,WtabPdf,H_tab);
+          painter.drawRect(rectfont_2);
+          painter.drawText(rectfont_2, Qt::AlignLeft ," Участник № "+QString::number(2));
+          rectfont_2.setRect(X_twoTab,y_pdf,WtabPdf,H_tab);
+          painter.drawRect(rectfont_2);
+          painter.drawText(rectfont_2, Qt::AlignLeft ," "+ui->lineEdit_Surname_2->text());
+
+          y_pdf +=H_tab;
+          QRect rectfont_3 = QRect(X_oneTab,y_pdf,WtabPdf,H_tab);
+          painter.drawRect(rectfont_3);
+          painter.drawText(rectfont_3, Qt::AlignLeft ," Участник № "+QString::number(3));
+          rectfont_3.setRect(X_twoTab,y_pdf,WtabPdf,H_tab);
+          painter.drawRect(rectfont_3);
+          painter.drawText(rectfont_3, Qt::AlignLeft ," "+ui->lineEdit_Surname_3->text());
+
+          y_pdf +=H_tab;
+          QRect rectfont_4 = QRect(X_oneTab,y_pdf,WtabPdf,H_tab);
+          painter.drawRect(rectfont_4);
+          painter.drawText(rectfont_4, Qt::AlignLeft ," Участник № "+QString::number(4));
+          rectfont_4.setRect(X_twoTab,y_pdf,WtabPdf,H_tab);
+          painter.drawRect(rectfont_4);
+          painter.drawText(rectfont_4, Qt::AlignLeft ," "+ui->lineEdit_Surname_4->text());
+
+          painter.end(); // завершаем рисование
+    }  // end printDialog.exec()
+}
+
+void Subscreen::Surnames()
+{
+ui->stackedWidget->setCurrentIndex(3);//goto surnanes
+}
+void Subscreen::Print()
+{
+
+ ui->stackedWidget->setCurrentIndex(4);//goto exit
+ Print_photo();
+}
 
 void Subscreen::Enter_lineEdit_1()
  {
@@ -110,7 +362,71 @@ void Subscreen::Enter_lineEdit_3()
  };
 
 
+void Subscreen::photo_view()
+{
+    QByteArray cameraDevice;     //Camera devices:
+    QActionGroup *videoDevicesGroup = new QActionGroup(this);
+    QList< QByteArray > cams_arr = QCamera::availableDevices();
+    QByteArray cam;
 
+ui->viewfinder->show();
+
+////////////camera///////////////////////////
+       //if ( !cams_arr.contains( m_defaultDevice ) )
+      // {
+              if ( cams_arr.count() == 0 )
+              {
+                  QMessageBox::critical( this, "Error", "Web Cams are not found!" );
+                  deleteLater();
+                  return;
+              }
+
+qDebug() << "CamsCnt:" << cams_arr.count();
+
+
+          //connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
+          //!!!!delete imageCapture, mediaRecorder,camera; //удалить старые на всякий
+
+connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
+
+          //todo выводить сообщение о нехватке камер/ дать возможность распределять какую - на что выводить
+           if ( cams_arr.count() >= 1 ) //>=3
+           {
+              CreateCameraDevice(cams_arr[1]); //2
+           }
+
+   ////////////camera end///////////////////////////
+}
+
+void Subscreen::CreateCameraDevice(QByteArray &cameraDevice)
+{
+    camera = new QCamera(cameraDevice); //создать новый
+    camera->setViewfinder(ui->viewfinder);
+    camera->start();
+}
+
+void Subscreen::CreateNextCameraDevice(QAction *action)
+{
+    camera = new QCamera(action->data().toByteArray()); //создать новый
+    camera->setViewfinder(ui->viewfinder);
+    camera->start();
+}
+
+
+void Subscreen::updateCameraDevice(QAction *action)
+{
+    //setCamera(action->data().toByteArray()); //динамически обноляет при  переключении
+}
+
+
+void Subscreen::startCamera() //in file menu
+{
+    camera->start();
+}
+void Subscreen::stopCamera() //in file menu
+{
+    camera->stop();
+}
 
 void Subscreen::Graphs_up()
 {
@@ -246,7 +562,6 @@ void Subscreen::setupAdvancedAxesDemo(QCustomPlot *customPlot)
   mainGraph2->setBrush(QColor(110, 170, 110, 30));
   mainGraph1->setChannelFillGraph(mainGraph2);
   mainGraph1->setBrush(QColor(255, 161, 0, 50));
-
 
   QCPGraph *graph2 = customPlot->addGraph(subRectLeft->axis(QCPAxis::atBottom), subRectLeft->axis(QCPAxis::atLeft));
   graph2->setData(x2, y2);
@@ -384,76 +699,6 @@ void Subscreen::realtimeDataSlot()
   }
 }
 
-
-
-void Subscreen::photo_view()
-{
-    QByteArray cameraDevice;     //Camera devices:
-    QActionGroup *videoDevicesGroup = new QActionGroup(this);
-    QList< QByteArray > cams_arr = QCamera::availableDevices();
-    QByteArray cam;
-
-ui->viewfinder->show();
-
-    ////////////camera///////////////////////////
-       //if ( !cams_arr.contains( m_defaultDevice ) )
-      // {
-              if ( cams_arr.count() == 0 )
-              {
-                  QMessageBox::critical( this, "Error", "Web Cams are not found!" );
-                  deleteLater();
-                  return;
-              }
-
-qDebug() << "CamsCnt:" << cams_arr.count();
-
-        // connect(ui->lineEdit_password, SIGNAL(returnPressed()), SLOT(EnterPassword()));
-         // connect(ui->action0, SIGNAL(triggered()), SLOT(CamDebug()));
-         // connect(ui->action1, SIGNAL(triggered()), SLOT(EnterPassword()));
-
-          //connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
-          //!!!!delete imageCapture, mediaRecorder,camera; //удалить старые на всякий
-
-connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
-
-          //todo выводить сообщение о нехватке камер/ дать возможность распределять какую - на что выводить
-           if ( cams_arr.count() >= 3 ) //>=3
-           {
-              CreateCameraDevice(cams_arr[2]); //2
-           }
-
-   ////////////camera end///////////////////////////
-}
-
-void Subscreen::CreateCameraDevice(QByteArray &cameraDevice)
-{
-    camera = new QCamera(cameraDevice); //создать новый
-    camera->setViewfinder(ui->viewfinder);
-    camera->start();
-}
-
-void Subscreen::CreateNextCameraDevice(QAction *action)
-{
-    camera = new QCamera(action->data().toByteArray()); //создать новый
-    camera->setViewfinder(ui->viewfinder);
-    camera->start();
-}
-
-
-void Subscreen::updateCameraDevice(QAction *action)
-{
-    //setCamera(action->data().toByteArray()); //динамически обноляет при  переключении
-}
-
-
-void Subscreen::startCamera() //in file menu
-{
-    camera->start();
-}
-void Subscreen::stopCamera() //in file menu
-{
-    camera->stop();
-}
 
 
 //UNUSED

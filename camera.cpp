@@ -88,6 +88,8 @@ Camera::Camera(QWidget *parent): QMainWindow(parent), ui(new Ui::Camera), camera
     QRect screenres = QApplication::desktop()->screenGeometry(1);
     move(QPoint(screenres.x(), screenres.y()));
 
+   // QShortcut shtcut(Qt::Key_Escape, this, SLOT(close()), 0, Qt::ApplicationShortcut);
+
 #ifndef __DEBUG
     showFullScreen();
     setWindowFlags(Qt::FramelessWindowHint);// убираем строку заголовка
@@ -215,7 +217,7 @@ void Camera::EnterPassword()
     if(ui->lineEdit_password->text()=="admin") //if password correct
     {
         ui->label_password->setText("Принято!");
-        Sleep(2000); //не работает
+        //Sleep(2000); //не работает
         ui->lineEdit_password->close();
         ui->label_password->close();
 
