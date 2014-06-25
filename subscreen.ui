@@ -188,7 +188,8 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(97, 67, 121);</string>
+          <string notr="true">background-color: rgb(97, 67, 121);
+background-color: rgb(222, 211, 255);</string>
          </property>
          <property name="text">
           <string/>
@@ -212,7 +213,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Ещё раз</string>
+          <string>  Ещё раз </string>
          </property>
         </widget>
        </item>
@@ -230,7 +231,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Далее &gt;&gt;</string>
+          <string>  Далее &gt;&gt;   </string>
          </property>
         </widget>
        </item>
@@ -248,7 +249,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Просмотр</string>
+          <string> Обновить </string>
          </property>
         </widget>
        </item>
@@ -902,6 +903,20 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>Debug_btn</tabstop>
+  <tabstop>Photo_Next</tabstop>
+  <tabstop>Photo_Prev</tabstop>
+  <tabstop>Photo_Button</tabstop>
+  <tabstop>lineEdit_3</tabstop>
+  <tabstop>lineEdit_2</tabstop>
+  <tabstop>lineEdit_1</tabstop>
+  <tabstop>lineEdit_Surname_1</tabstop>
+  <tabstop>lineEdit_Surname_2</tabstop>
+  <tabstop>lineEdit_Surname_3</tabstop>
+  <tabstop>lineEdit_Surname_4</tabstop>
+  <tabstop>Print_Button</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

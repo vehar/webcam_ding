@@ -53,6 +53,8 @@
 #include <QDateTimeEdit>
 #include <QPrinterInfo>
 
+#include <windows.h>
+
 //#define __DEBUG
 
 #ifdef __DEBUG
@@ -60,6 +62,180 @@
 #define _CRTDBG_MAP_ALLOC // enable generation of debug heap alloc map
 #define new new( _NORMAL_BLOCK, __FILE__, __LINE__) // redefine "new" to get file names in output
 #endif
+
+
+/*
+void OnBnClickedPrint()
+{
+    BOOL            printDlgReturn = FALSE;
+   HDC                printerDC = NULL;
+   PRINTDLG        printDlgInfo = {0};
+   LPWSTR            localPrinterName = NULL;
+   PDEVMODE        returnedDevmode = NULL;
+   PDEVMODE        localDevmode = NULL;
+   int                localNumberOfCopies = 0;
+
+     // Initialize the print dialog box's data structure.
+    printDlgInfo.lStructSize = sizeof( printDlgInfo );
+    printDlgInfo.Flags =
+    // Return a printer device context.
+    PD_RETURNDC
+    // Don't allow separate print to file.
+    // Remove these flags if you want to support this feature.
+    | PD_HIDEPRINTTOFILE
+    | PD_DISABLEPRINTTOFILE
+    // Don't allow selecting individual document pages to print.
+    // Remove this flag if you want to support this feature.
+    | PD_NOSELECTION;
+
+    // Display the printer dialog and retrieve the printer DC.
+    printDlgReturn = PrintDlg(&printDlgInfo);
+    qDebug() << "Printers = " << printDlgReturn; // len comes back zero
+
+
+   // Check the return value.
+   if (TRUE == printDlgReturn)
+   {
+
+    // Get the HDC of the selected printer
+    printerDC = printDlgInfo.hDC;
+
+
+    //  Lock the handle to get a pointer to the DEVMODE structure.
+    returnedDevmode = (PDEVMODE)GlobalLock(printDlgInfo.hDevMode);
+
+    localDevmode = (LPDEVMODE)HeapAlloc(
+                        GetProcessHeap(),
+                        HEAP_ZERO_MEMORY | HEAP_GENERATE_EXCEPTIONS,
+                        returnedDevmode->dmSize);
+
+    if (NULL != localDevmode)
+    {
+        memcpy(
+            (LPVOID)localDevmode,
+            (LPVOID)returnedDevmode,
+            returnedDevmode->dmSize);
+
+           localPrinterName = localDevmode->dmDeviceName;
+
+
+        localNumberOfCopies = printDlgInfo.nCopies;
+    }
+    else
+    {
+        // Unable to allocate a new structure
+    }
+
+    //  dialog box.
+    if (NULL != printDlgInfo.hDevMode)
+    {
+        GlobalFree(printDlgInfo.hDevMode);
+    }
+ }
+ else
+ {
+     // The user cancelled out of the print dialog box.
+ }
+}*/
+/*
+void Print_dialog()
+{
+ qDebug() << "Enter in print dialog";
+
+ // Display the printer dialog box so the user can select the
+ //  printer and the number of copies to print.
+ BOOL            printDlgReturn = FALSE;
+ HDC                printerDC = NULL;
+ PRINTDLG        printDlgInfo = {0};
+ LPWSTR            localPrinterName = NULL;
+ PDEVMODE        returnedDevmode = NULL;
+ PDEVMODE        localDevmode = NULL;
+ int                localNumberOfCopies = 0;
+
+ // Initialize the print dialog box's data structure.
+ printDlgInfo.lStructSize = sizeof( printDlgInfo );
+ printDlgInfo.Flags =
+     // Return a printer device context.
+     PD_RETURNDC
+     // Don't allow separate print to file.
+     // Remove these flags if you want to support this feature.
+     | PD_HIDEPRINTTOFILE
+     | PD_DISABLEPRINTTOFILE
+     // Don't allow selecting individual document pages to print.
+     // Remove this flag if you want to support this feature.
+     | PD_NOSELECTION;
+
+ // Display the printer dialog and retrieve the printer DC.
+ printDlgReturn = PrintDlg(&printDlgInfo);
+
+ // Check the return value.
+ if (TRUE == printDlgReturn)
+ {
+     // The user clicked OK so the printer dialog box data
+     //  structure was returned with the user's selections.
+     //  Copy the relevant data from the data structure and
+     //  save them to a local data structure.
+
+     //
+     // Get the HDC of the selected printer
+     printerDC = printDlgInfo.hDC;
+
+     // In this example, the DEVMODE structure returned by
+     //    the printer dialog box is copied to a local memory
+     //    block and a pointer to the printer name that is
+     //    stored in the copied DEVMODE structure is saved.
+
+     //
+     //  Lock the handle to get a pointer to the DEVMODE structure.
+     returnedDevmode = (PDEVMODE)GlobalLock(printDlgInfo.hDevMode);
+
+     localDevmode = (LPDEVMODE)HeapAlloc(
+                         GetProcessHeap(),
+                         HEAP_ZERO_MEMORY | HEAP_GENERATE_EXCEPTIONS,
+                         returnedDevmode->dmSize);
+
+     if (NULL != localDevmode)
+     {
+         memcpy(
+             (LPVOID)localDevmode,
+             (LPVOID)returnedDevmode,
+             returnedDevmode->dmSize);
+
+         // Save the printer name from the DEVMODE structure.
+         //  This is done here just to illustrate how to access
+         //  the name field. The printer name can also be accessed
+         //  by referring to the dmDeviceName in the local
+         //  copy of the DEVMODE structure.
+         localPrinterName = localDevmode->dmDeviceName;
+
+         // Save the number of copies as entered by the user
+         localNumberOfCopies = printDlgInfo.nCopies;
+     }
+     else
+     {
+         // Unable to allocate a new structure so leave
+         //  the pointer as NULL to indicate that it's empty.
+     }
+
+     // Free the DEVMODE structure returned by the print
+     //  dialog box.
+     if (NULL != printDlgInfo.hDevMode)
+     {
+         GlobalFree(printDlgInfo.hDevMode);
+     }
+ }
+ else
+ {
+     // The user cancelled out of the print dialog box.
+ }
+
+
+ qDebug() << "printerDC "<<printerDC;
+
+
+ qDebug() << "Exit in print dialog";
+}
+*/
 
 int main(int argc, char *argv[])
 {
@@ -90,6 +266,14 @@ qDebug() << "Date:" << QDate::currentDate();
     QList <QPrinterInfo> plist = QPrinterInfo::availablePrinters();
     qDebug() << "Printers cnt = " << plist.length(); // len comes back zero
 #endif
+
+
+//OnBnClickedPrint();
+
+
+
+
+
 /*
     //--------2-nd screen test-----------------------------------------------------
     QMainWindow *window = new QMainWindow();

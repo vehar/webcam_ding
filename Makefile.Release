@@ -67,22 +67,22 @@ DESTDIR_TARGET = release\camera.exe
 
 .SUFFIXES: .c .cpp .cc .cxx
 
-{QCustomPlot\qcustomplot}.cpp{release\}.obj::
+{.}.cpp{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{QCustomPlot\qcustomplot}.cc{release\}.obj::
+{.}.cc{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{QCustomPlot\qcustomplot}.cxx{release\}.obj::
+{.}.cxx{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{QCustomPlot\qcustomplot}.c{release\}.obj::
+{.}.c{release\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
@@ -107,22 +107,22 @@ DESTDIR_TARGET = release\camera.exe
 	$<
 <<
 
-{.}.cpp{release\}.obj::
+{QCustomPlot\qcustomplot}.cpp{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{.}.cc{release\}.obj::
+{QCustomPlot\qcustomplot}.cc{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{.}.cxx{release\}.obj::
+{QCustomPlot\qcustomplot}.cxx{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{.}.c{release\}.obj::
+{QCustomPlot\qcustomplot}.c{release\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
@@ -2422,7 +2422,10 @@ release\main.obj: main.cpp camera.h \
 		..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\QPrintDialog \
 		..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qprintdialog.h \
 		..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qabstractprintdialog.h \
-		..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QDateTimeEdit
+		..\..\..\5.3\msvc2012_opengl\include\QtWidgets\QDateTimeEdit \
+		..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\QPrinterInfo \
+		..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qprinterinfo.h \
+		..\..\..\5.3\msvc2012_opengl\include\QtCore\QPair
 
 release\camera.obj: camera.cpp camera.h \
 		..\..\..\5.3\msvc2012_opengl\include\QtMultimedia\QCamera \
@@ -3608,6 +3611,9 @@ release\subscreen.obj: subscreen.cpp subscreen.h \
 		..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\QPrintDialog \
 		..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qprintdialog.h \
 		..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qabstractprintdialog.h \
+		..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\QPrinterInfo \
+		..\..\..\5.3\msvc2012_opengl\include\QtPrintSupport\qprinterinfo.h \
+		..\..\..\5.3\msvc2012_opengl\include\QtCore\QPair \
 		..\..\..\5.3\msvc2012_opengl\include\QtTest\QTest \
 		..\..\..\5.3\msvc2012_opengl\include\QtTest\qtest.h \
 		..\..\..\5.3\msvc2012_opengl\include\QtTest\qtest_global.h \

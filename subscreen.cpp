@@ -15,10 +15,13 @@
 #include <QtWidgets>
 #include <QPrintDialog>
 #include <QPrinter>
+#include <QPrinterInfo>
 
 #include <QtTest/QTest>
 
 //#define __DEBUG
+
+#define CURR_CAM_CNT 2
 
 QVector<double> x1a(20), y1a(20);
 QVector<double> x1b(50), y1b(50);
@@ -55,6 +58,8 @@ QShortcut shtcut(Qt::Key_Escape, this, SLOT(close()), 0, Qt::ApplicationShortcut
      connect(ui->lineEdit_3, SIGNAL(returnPressed()), SLOT(Enter_lineEdit_3()));
 
      connect(ui->Photo_Button, SIGNAL(pressed()), SLOT(Capture_photo()));
+    // connect(ui->Photo_Button, SIGNAL(pressed()), SLOT(Dbg()));
+
      connect(ui->Print_Button, SIGNAL(pressed()), SLOT(Print()));
 
      connect(ui->lineEdit_Surname_1, SIGNAL(returnPressed()), SLOT(Focus_2()));
@@ -167,18 +172,21 @@ void Subscreen::Capture_photo()
 
     //ui->stackedWidget_Under->setCurrentIndex(1);
     ui->stackedWidget->setCurrentIndex(1);
-   // Show_photo(Img_fileName);
+    Show_photo(Img_fileName);
 
    // connect(imageCapture, SIGNAL(&QCameraImageCapture::imageCaptured()), SLOT(Dbg())); //
    // connect( imageCapture, &QCameraImageCapture::imageCaptured, Dbg()( int id, const QImage &image )
 
-    //Dbg();
+  //  Dbg();
 }
 
 void Subscreen::Recapture()
 {
-    //желательно imageFile.remove();
 /*
+    QString Img_file = QCoreApplication::applicationDirPath() + "/image.jpg";
+    QFile old_imageFile( Img_file );
+    old_imageFile.remove();
+
     QString Img_fileName = QCoreApplication::applicationDirPath() + "/fon.png";
     QFile imageFile( Img_fileName );
 
@@ -228,29 +236,40 @@ void Subscreen::Show_photo(QString img_file_name)
 
 void Subscreen::Print_photo()
 {
-    QPrinter printer;
+   QPrinter printer;
+   printer.setPageMargins(10,10,10,10, QPrinter::Millimeter);
+   printer.setPaperSize(printer.A4);
+
+    //получить доступные принтера(в список)
+     //   QList<QPrinterInfo> printerInfo= QPrinterInfo::availablePrinters ();
+    //эти две строки писал для проверки, каждая из них вывела мой  принтер
+      //  ui->textEdit->setText( printerInfo.first().printerName());
+      //  ui->textEdit->append( printerInfo.last().printerName());
 
     printer.setOutputFormat(QPrinter::NativeFormat);
-    //printer->setPageSize(QPrinter::A5);
-   // printer->setOrientation(QPrinter::Landscape);
+
+        // printer->setOrientation(QPrinter::Landscape);
            // название протокола формируем согласно заводскому номеру и году
    //printer.setOutputFileName( "protocol/" + m_ui->labelNumberZav_znach->text() + m_ui->labelNumberDec_znach->text()+".pdf");  //по другому printer.setOutputFileName("Test.pdf");
-   printer.setOutputFileName( "Test print.pdf");
+
+       //  printer.setOutputFileName( "Test print.pdf");
 
     QPrintDialog printDialog(&printer, this);
 
-      if (printDialog.exec())
+      if (printDialog.exec()== 1) // if (printDialog.exec()== QDialog::Accepted)
       {
+            qDebug()<<"print execute";
+
            // объект отрисовки
            QPainter painter;
 
-           // проверка открытия для редактора
+         // проверка открытия для редактора
            if (! painter.begin(&printer))
            {
                // открытие принтера проверим
                qWarning("Ошибка открытия принтера!");
                return; // Выходим
-           }
+         }
 
            // Сообственно все, откроется диалог где указывать принтер нужно, далее рисуем просто наш отчет
            //Теперь отрисуем отчет на этом принтере
@@ -311,6 +330,17 @@ void Subscreen::Print_photo()
 
           painter.end(); // завершаем рисование
     }  // end printDialog.exec()
+
+      /*
+    QPrinter *printer = new QPrinter;
+    QPrintDialog *printDialog = new QPrintDialog(printer,this);
+    if(printDialog->exec() == QDialog::Accepted)
+    {
+        qDebug()<<"print execute";
+        QPainter p(printer);
+        QPixmap pm = QPixmap::grabWidget(w,w->rect());
+        p.drawPixmap(0,0,pm);
+    } */
 }
 
 void Subscreen::Surnames()
@@ -372,11 +402,9 @@ void Subscreen::photo_view()
 ui->viewfinder->show();
 
 ////////////camera///////////////////////////
-       //if ( !cams_arr.contains( m_defaultDevice ) )
-      // {
-              if ( cams_arr.count() == 0 )
+              if ( cams_arr.count() < CURR_CAM_CNT )
               {
-                  QMessageBox::critical( this, "Error", "Web Cams are not found!" );
+                  QMessageBox::critical( this, "Error", "3-d Web Cam are not found!" );
                   deleteLater();
                   return;
               }
@@ -390,9 +418,9 @@ qDebug() << "CamsCnt:" << cams_arr.count();
 connect(videoDevicesGroup, SIGNAL(triggered(QAction*)), SLOT(CreateNextCameraDevice(QAction*)));
 
           //todo выводить сообщение о нехватке камер/ дать возможность распределять какую - на что выводить
-           if ( cams_arr.count() >= 1 ) //>=3
+           if ( cams_arr.count() >= CURR_CAM_CNT ) //>=3
            {
-              CreateCameraDevice(cams_arr[1]); //2
+              CreateCameraDevice(cams_arr[CURR_CAM_CNT-1]); //2
            }
 
    ////////////camera end///////////////////////////
